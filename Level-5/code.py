@@ -24,9 +24,9 @@ class SHA256_hasher:
 
     # produces the password hash by combining password + salt because hashing
     def password_hash(self, password, salt):
-        password = binascii.hexlify(hashlib.sha256(password.encode()).digest())
+        password = password.encode('utf-8')
         password_hash = bcrypt.hashpw(password, salt)
-        return password_hash.decode('ascii')
+        return password_hash.decode('utf-8')
 
     # verifies that the hashed password reverses to the plain text version on verification
     def password_verification(self, password, password_hash):
