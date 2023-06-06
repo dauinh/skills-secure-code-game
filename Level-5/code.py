@@ -23,16 +23,14 @@ class Random_generator:
 class SHA256_hasher:
 
     # produces the password hash by combining password + salt because hashing
-    def password_hash(self, password, salt):
-        password = password.encode('utf-8')
-        password_hash = bcrypt.hashpw(password, salt)
-        return password_hash.decode('utf-8')
+    def password_hash(self, password):
+        ph = PasswordHasher()
+        return ph.hash(password)
 
     # verifies that the hashed password reverses to the plain text version on verification
     def password_verification(self, password, password_hash):
-        password = binascii.hexlify(hashlib.sha256(password.encode()).digest())
-        password_hash = password_hash.encode('ascii')
-        return bcrypt.checkpw(password, password_hash)
+        ph = PasswordHasher()
+        return ph.verify(password_hash, password)
 
 class MD5_hasher:
 
